@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Калькулятор замеров — Актив Строй Газ</title>
+<style>
+body{font-family:Arial;background:#111;color:#fff;padding:10px}
+.card{background:#1c1c1c;max-width:650px;margin:auto;padding:20px;border-radius:15px;box-shadow:0 0 10px rgba(0,0,0,.6)}
+h2{text-align:center}
+h3{margin-top:20px;border-bottom:1px solid #333;padding-bottom:5px}
+label{display:block;margin-top:12px;font-size:15px}
+input{width:100%;padding:12px;margin-top:5px;border-radius:8px;border:none;font-size:16px}
+button{margin-top:15px;width:100%;padding:15px;background:#2ecc71;color:#000;border:none;font-size:18px;border-radius:10px;font-weight:bold}
+.secondary{background:#3498db}
+.danger{background:#e74c3c;color:#fff}
+.result{margin-top:20px;font-size:22px;font-weight:bold;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="card">
+<h2>Калькулятор замеров</h2>
+
+<h3>Метраж трубы</h3>
+<label>DN15 (м)</label><input id="dn15" type="number">
+<label>DN20 (м)</label><input id="dn20" type="number">
+<label>DN25 (м)</label><input id="dn25" type="number">
+<label>DN32 (м)</label><input id="dn32" type="number">
+<label>DN40 (м)</label><input id="dn40" type="number">
+<label>DN57 (м)</label><input id="dn57" type="number">
+
+<h3>Опорные стойки</h3>
+<label>Стойка DN32 (шт)</label><input id="stand32" type="number">
+<label>Стойка DN40 (шт)</label><input id="stand40" type="number">
+
+<h3>Оборудование</h3>
+<label>Цена котла</label><input id="boiler" type="number">
+<label>Коаксиальный дымоход</label><input id="coax" type="number">
+<label>Сигнализатор DN15</label><input id="sig15" type="number">
+<label>Сигнализатор DN20</label><input id="sig20" type="number">
+<label>Стабилизатор</label><input id="stab" type="number">
+<label>Муфта диэлектрическая</label><input id="mufta" type="number">
+<label>Газовый рукав</label><input id="rukav" type="number">
+<label>Подводка сильфон</label><input id="silfon" type="number">
+<label>Фильтр газа</label><input id="filter" type="number">
+<label>Монтаж радиатора</label><input id="radInstall" type="number">
+<label>Радиатор</label><input id="radiator" type="number">
+<label>Газовый кран</label><input id="kran" type="number">
+<label>Счетчик газа</label><input id="meter" type="number">
+<label>Гидрострелка</label><input id="hydro" type="number">
+<label>Установка гидрострелки</label><input id="hydroInstall" type="number">
+
+<h3>Фиксированные услуги</h3>
+<label>Монтаж котла</label><input id="boilerInstall" type="number">
+<label>Сантехматериал</label><input id="santeh" type="number">
+
+<button onclick="calc()">💰 Посчитать</button>
+<button class="secondary" onclick="shareWhatsApp()">📤 Отправить в WhatsApp</button>
+<button class="danger" onclick="clearAll()">♻ Очистить</button>
+
+<div class="result" id="res">Итого: 0 ₸</div>
+</div>
+
+<script>
+const P_DN15=4500, P_DN20=4500, P_DN25=4500, P_DN32=7300, P_DN40=8300, P_DN57=9700;
+const STAND32=25000, STAND40=35000;
+const BOILER_INSTALL=50000, COAX=20000, SIG15=15000, SIG20=17000, STAB=8000;
+const MUFTA=5000, RUKAV=5000, SILFON=5000, FILTER=5000;
+const RAD_INSTALL=10000, RADIATOR=35000, KRAN=15000, METER=40000;
+const HYDRO=45000, HYDRO_INSTALL=8000, SANTEH=120000, DOCS=150000;
+
+function v(id){return Number(document.getElementById(id).value)||0}
+
+function calc(){
+let total=
+ v('dn15')*P_DN15+
+ v('dn20')*P_DN20+
+ v('dn25')*P_DN25+
+ v('dn32')*P_DN32+
+ v('dn40')*P_DN40+
+ v('dn57')*P_DN57+
+ v('stand32')*STAND32+
+ v('stand40')*STAND40+
+ v('boiler')+
+ v('boilerInstall')*BOILER_INSTALL+
+ v('coax')*COAX+
+ v('sig15')*SIG15+
+ v('sig20')*SIG20+
+ v('stab')*STAB+
+ v('mufta')*MUFTA+
+ v('rukav')*RUKAV+
+ v('silfon')*SILFON+
+ v('filter')*FILTER+
+ v('radInstall')*RAD_INSTALL+
+ v('radiator')*RADIATOR+
+ v('kran')*KRAN+
+ v('meter')*METER+
+ v('hydro')*HYDRO+
+ v('hydroInstall')*HYDRO_INSTALL+
+ v('santeh')*SANTEH+
+ DOCS;
+
+document.getElementById('res').innerText='Итого: '+total.toLocaleString()+' ₸';
+}
+
+function clearAll(){document.querySelectorAll('input').forEach(i=>i.value='');calc();}
+
+function shareWhatsApp(){
+let text=document.getElementById('res').innerText;
+window.open('https://wa.me/?text='+encodeURIComponent(text));
+}
+</script>
+
+</body>
+</html>
